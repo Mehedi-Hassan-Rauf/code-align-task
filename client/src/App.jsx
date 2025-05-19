@@ -4,7 +4,8 @@ import TaskForm from './components/TaskForm';
 import TaskDetail from './components/TaskDetail';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const socket = io(API_URL);
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -18,7 +19,7 @@ function App() {
   const fetchTasks = async (page = 1, search = '') => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks?page=${page}&limit=${tasksPerPage}&search=${search}`
+        `${API_URL}/api/tasks?page=${page}&limit=${tasksPerPage}&search=${search}`
       );
       const data = await response.json();
       setTasks(data.tasks);

@@ -1,3 +1,6 @@
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function TaskList({
     tasks,
     setSelectedTask,
@@ -10,7 +13,7 @@ function TaskList({
   }) {
     const toggleStatus = async (task) => {
       try {
-        await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
+        await fetch(`${API_URL}/api/tasks/${task.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

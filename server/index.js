@@ -5,9 +5,12 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+const PORT = process.env.PORT || 5000;
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
+
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: CLIENT_URL,
     methods: ['GET', 'PUT', 'POST'],
   },
 });
@@ -70,6 +73,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log('Server running on http://localhost:5000');
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
