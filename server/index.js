@@ -7,15 +7,10 @@ import path from "path";
 import cors from "cors";
 
 const app = express();
-const __dirname = path.resolve();
-
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-
-// Serve static files from the client/dist directory
-app.use(express.static(path.join(__dirname, "/client/dist")));
 
 let tasks = [];
 let idCounter = 1;
@@ -66,10 +61,6 @@ app.put('/api/tasks/:id', (req, res) => {
   }
 });
 
-// For all other routes, serve the React app
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
 
 const PORT = process.env.PORT || 5000;
 const httpServer = createServer(app);
